@@ -5,8 +5,8 @@ import chromadb
 RAW = Path("data/raw_priority1_headers")
 DB_PATH = "chroma_db"
 COLLECTION = "sit_admissions"
-CHUNK_SIZE = 1800
-OVERLAP = 250
+CHUNK_SIZE = 1500
+OVERLAP = 200
 
 def read_file(path):
     text = path.read_text(encoding="utf-8")

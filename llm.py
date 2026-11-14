@@ -16,13 +16,13 @@ tuition fees, and so on. If the user ask something beyond admission in SIT, repl
 
 
 
-def ask_llm(message):
+def ask_llm(message, system_message = SYSTEM_PROMPT):
     response = client.chat.completions.create(
         model="gpt-4.1-mini",
         messages=[
             {
                 "role": "system",
-                "content": SYSTEM_PROMPT
+                "content": system_message
             },
             {
                 "role": "user",
