@@ -7,7 +7,7 @@ load_dotenv()
 client = AzureOpenAI(
     api_version="2024-12-01-preview",
     api_key = os.getenv("AZURE_OPENAI_API_KEY"),
-    azure_endpoint = os.getenv("OPENAI_ENDPOINT")
+    azure_endpoint = os.getenv("OPENAI_ENDPOINT_GPT4.1s")
 )
 
 SYSTEM_PROMPT = """You are an AI assistant for Singapore Insitute of Techonology (SIT) that mainly focuses on 
