@@ -40,18 +40,19 @@ Rules:
 5. Remind the user to verify dates and fees on the official SIT website, because they can change.
 6. Keep answers short and clear."""
 
-def rag(prompt):
+def rag(prompt, assistant):
     chunks = ask_query(prompt, 3)
     best = chunks[0]["distance"]
-    if best > 99:
+    if best > 0.5:
+        response = ask_llm(prompt, memory = assistant)
         return {
-            "answer": "Sorry i don't have that information",
+            "answer": response,
             "sources": [],
             "best_distance": best,
         }
 
     message = f"Context:\n{create_text(chunks)}\n\nQuestion: {prompt}"
-    response = ask_llm(message, RAG_PROMPT)
+    response = ask_llm(message, RAG_PROMPT, assistant)
 
     sources = []
     for i, c in enumerate(chunks, start=1):
@@ -60,5 +61,5 @@ def rag(prompt):
 
 
 
-response = rag("How to check my application status?")
-print(response)
+# response = rag("What is my age?")
+# print(response["answer"])

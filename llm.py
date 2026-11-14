@@ -16,24 +16,27 @@ tuition fees, and so on. If the user ask something beyond admission in SIT, repl
 
 
 
-def ask_llm(message, system_message = SYSTEM_PROMPT):
+def ask_llm(message, system_message = SYSTEM_PROMPT, memory = []):
+    messages= [
+        {
+            "role": "system",
+            "content": system_message
+        }
+    ]
+
+    if len(memory):
+        messages.extend(memory)
+
+    messages.append({
+        "role": "user",
+        "content": message
+    })
+
     response = client.chat.completions.create(
         model="gpt-4.1-mini",
-        messages=[
-            {
-                "role": "system",
-                "content": system_message
-            },
-            {
-                "role": "user",
-                "content": message,
-            }
-        ],
-        max_completion_tokens=20,
+        messages=messages,
+        max_completion_tokens=50,
     )
 
     return response.choices[0].message.content
 
-
-# result = ask_llm("What is the best place in singapore?")
-# print(result)
