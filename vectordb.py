@@ -39,4 +39,4 @@ for path in files:
         metadatas.append({**meta, "chunk": i})
 
 collection.add(ids=ids, documents=documents, metadatas=metadatas)
-print(len(files), "documents,", len(documents), "chunks")
+# print(len(files), "documents,", len(documents), "chunks")

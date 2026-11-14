@@ -7,7 +7,7 @@ load_dotenv()
 client = AzureOpenAI(
     api_version="2024-12-01-preview",
     api_key = os.getenv("AZURE_OPENAI_API_KEY"),
-    azure_endpoint = os.getenv("OPENAI_ENDPOINT_GPT4.1s")
+    azure_endpoint = os.getenv("OPENAI_ENDPOINT_GPT4.1")
 )
 
 SYSTEM_PROMPT = """You are an AI assistant for Singapore Insitute of Techonology (SIT) that mainly focuses on 
@@ -35,5 +35,5 @@ def ask_llm(message, system_message = SYSTEM_PROMPT):
     return response.choices[0].message.content
 
 
-result = ask_llm("What is the best place in singapore?")
-print(result)
+# result = ask_llm("What is the best place in singapore?")
+# print(result)

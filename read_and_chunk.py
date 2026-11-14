@@ -18,8 +18,8 @@ def read_file(path):
     return meta, body.strip()
 
 meta, body = read_file(Path("data/raw_priority1_headers/admissions_admissions-faqs.md"))
-print(meta)
-print(len(body))
+# print(meta)
+# print(len(body))
 
 
 def chunk_text(text, size=CHUNK_SIZE, overlap=OVERLAP):
@@ -32,7 +32,7 @@ def chunk_text(text, size=CHUNK_SIZE, overlap=OVERLAP):
         start += size - overlap
     return chunks
 
-print(chunk_text("abcdefghijklmnopqrstuvwxyz0123456789ABCDEFGHIJKLMN", size=20, overlap=5))
+# print(chunk_text("abcdefghijklmnopqrstuvwxyz0123456789ABCDEFGHIJKLMN", size=20, overlap=5))
 
 
 
