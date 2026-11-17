@@ -1,0 +1,114 @@
+[
+  {
+    "event": "Online application period opens and closes",
+    "date": "2027-01-06 to 2027-03-19",
+    "applies_to": "All undergraduate applicants",
+    "source_url": "https://www.singaporetech.edu.sg/admissions/undergraduate",
+    "ay": "AY2027"
+  },
+  {
+    "event": "Early Admissions engagement session",
+    "date": "2027-01-15",
+    "applies_to": "Engineering cluster (Early Admissions Exercise)",
+    "source_url": "https://www.singaporetech.edu.sg/admissions/undergraduate/early-admissions-exercise",
+    "ay": "AY2027"
+  },
+  {
+    "event": "Early Admissions engagement session",
+    "date": "2027-01-23",
+    "applies_to": "Business, Communication and Design cluster, except Culinary Institute of America (Early Admissions Exercise)",
+    "source_url": "https://www.singaporetech.edu.sg/admissions/undergraduate/early-admissions-exercise",
+    "ay": "AY2027"
+  },
+  {
+    "event": "Early Admissions engagement session",
+    "date": "2027-01-23",
+    "applies_to": "Food, Chemical and Biotechnology cluster (Early Admissions Exercise)",
+    "source_url": "https://www.singaporetech.edu.sg/admissions/undergraduate/early-admissions-exercise",
+    "ay": "AY2027"
+  },
+  {
+    "event": "Early Admissions engagement session",
+    "date": "2027-01-23",
+    "applies_to": "Infocomm Technology cluster (Early Admissions Exercise)",
+    "source_url": "https://www.singaporetech.edu.sg/admissions/undergraduate/early-admissions-exercise",
+    "ay": "AY2027"
+  },
+  {
+    "event": "Early Admissions engagement session",
+    "date": "2027-01-25",
+    "applies_to": "Business, Communication and Design cluster, Culinary Institute of America (Early Admissions Exercise)",
+    "source_url": "https://www.singaporetech.edu.sg/admissions/undergraduate/early-admissions-exercise",
+    "ay": "AY2027"
+  },
+  {
+    "event": "Early Admissions engagement session",
+    "date": "2027-01-30",
+    "applies_to": "Health and Social Sciences cluster (Early Admissions Exercise)",
+    "source_url": "https://www.singaporetech.edu.sg/admissions/undergraduate/early-admissions-exercise",
+    "ay": "AY2027"
+  },
+  {
+    "event": "Admission interviews (most programmes)",
+    "date": "Mid-February to Mid-May 2027 (exact period differs by programme)",
+    "applies_to": "Shortlisted applicants",
+    "source_url": "https://www.singaporetech.edu.sg/admissions/undergraduate",
+    "ay": "AY2027"
+  },
+  {
+    "event": "Health Sciences Admission Exercise",
+    "date": "2027-03-23 to 2027-04-24",
+    "applies_to": "Shortlisted applicants to Allied Health programmes",
+    "source_url": "https://www.singaporetech.edu.sg/admissions/undergraduate",
+    "ay": "AY2027"
+  },
+  {
+    "event": "Release of application results (offers)",
+    "date": "Mid-April to Mid-May 2027",
+    "applies_to": "All undergraduate applicants",
+    "source_url": "https://www.singaporetech.edu.sg/admissions/undergraduate",
+    "ay": "AY2027"
+  },
+  {
+    "event": "Acceptance of offer",
+    "date": "2027-05-24",
+    "applies_to": "Applicants who received an offer",
+    "source_url": "https://www.singaporetech.edu.sg/admissions/undergraduate",
+    "ay": "AY2027"
+  },
+  {
+    "event": "Appeal period",
+    "date": "2027-05-25 to 2027-06-02",
+    "applies_to": "Applicants who applied in the AY2027 exercise (one programme per appeal)",
+    "source_url": "https://www.singaporetech.edu.sg/admissions/undergraduate",
+    "ay": "AY2027"
+  },
+  {
+    "event": "Acceptance of offer for appeals",
+    "date": "From early June 2027",
+    "applies_to": "Applicants with a successful appeal",
+    "source_url": "https://www.singaporetech.edu.sg/admissions/undergraduate",
+    "ay": "AY2027"
+  },
+  {
+    "event": "Health Sciences Admission Exercise (appeals) interviews",
+    "date": "Early June 2027",
+    "applies_to": "Allied Health appeal applicants",
+    "source_url": "https://www.singaporetech.edu.sg/admissions/undergraduate",
+    "ay": "AY2027"
+  },
+  {
+    "event": "Matriculation (declaration form, photo, medical report, financial aid, etc.)",
+    "date": "June 2027",
+    "applies_to": "Applicants who accepted an offer",
+    "source_url": "https://www.singaporetech.edu.sg/admissions/undergraduate",
+    "ay": "AY2027"
+  },
+  {
+    "event": "First-Year Experience (FYE) induction programmes",
+    "date": "End-August 2027",
+    "applies_to": "Incoming first-year students",
+    "source_url": "https://www.singaporetech.edu.sg/admissions/undergraduate",
+    "ay": "AY2027"
+  }
+]
