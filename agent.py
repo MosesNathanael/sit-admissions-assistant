@@ -1,9 +1,3 @@
-"""SIT Admissions Assistant: Agent with tool-calling loop.
-
-Run directly:  python agent.py
-(Start the enquiry API first in another terminal:  uvicorn enquiry_api:app --reload)
-"""
-
 import json
 import logging
 import httpx
@@ -14,10 +8,9 @@ from mcp_server import get_key_dates
 
 logging.disable(logging.INFO)
 
-SHOW_STEPS = True  # set to True to see each tool call while debugging
+SHOW_STEPS = True  
 
 
-# Tool definitions for the LLM
 TOOLS = [
     {
         "type": "function",
@@ -89,7 +82,7 @@ TOOLS = [
     }
 ]
 
-# System prompt for the agent
+
 AGENT_SYSTEM_PROMPT = """You are the SIT Admissions Assistant, an AI agent that helps prospective applicants with admission-related questions.
 
 You have access to the following tools:
@@ -133,7 +126,6 @@ def search_admissions_info(query: str, topic: str | None = None) -> list[dict]:
 
 def submit_enquiry(route: str, programme_interest: str, question: str, contact_email: str) -> dict:
     """Submit an enquiry via the API endpoint."""
-    # Call the FastAPI endpoint
     api_url = "http://localhost:8000/enquiries"
     payload = {
         "route": route,
@@ -187,7 +179,7 @@ def run_agent(user_question: str, conversation_history: list[dict] | None = None
     if conversation_history is None:
         conversation_history = []
 
-    # Build messages for the LLM
+   
     messages = [
         {"role": "system", "content": AGENT_SYSTEM_PROMPT}
     ]
@@ -201,8 +193,6 @@ def run_agent(user_question: str, conversation_history: list[dict] | None = None
         out_of_calls = tool_calls_made >= MAX_TOOL_CALLS
 
         if out_of_calls:
-            # Out of tool calls: ask for a final answer with NO tools.
-            # (This extra instruction is only sent now; it is not kept in the history.)
             finish = {
                 "role": "user",
                 "content": "You have used all your tool calls. Using only the information above, "
@@ -211,10 +201,8 @@ def run_agent(user_question: str, conversation_history: list[dict] | None = None
             }
             response = ask_llm_with_tools(messages + [finish], [])
         else:
-            # Call the LLM with tools
             response = ask_llm_with_tools(messages, TOOLS)
 
-        # Check if the LLM wants to call a tool
         if response.get("tool_calls") and not out_of_calls:
             for tool_call in response["tool_calls"]:
                 if tool_calls_made >= MAX_TOOL_CALLS:
@@ -226,7 +214,7 @@ def run_agent(user_question: str, conversation_history: list[dict] | None = None
                 if SHOW_STEPS:
                     print(f"\n[Tool Call {tool_calls_made + 1}/{MAX_TOOL_CALLS}] {tool_name}({tool_args})")
 
-                # Execute the tool
+               
                 if tool_name == "search_admissions_info":
                     results = search_admissions_info(**tool_args)
                     tool_result = format_search_results(results)
@@ -246,7 +234,6 @@ def run_agent(user_question: str, conversation_history: list[dict] | None = None
                     })
 
                 elif tool_name == "submit_enquiry":
-                    # Store the enquiry for confirmation
                     pending_enquiry = tool_args
                     tool_result = f"Draft enquiry prepared:\n- Route: {tool_args['route']}\n- Programme: {tool_args['programme_interest']}\n- Question: {tool_args['question']}\n- Email: {tool_args['contact_email']}\n\nPlease confirm: Should I submit this enquiry? (yes/no)"
                     messages.append({
@@ -257,23 +244,19 @@ def run_agent(user_question: str, conversation_history: list[dict] | None = None
 
                 tool_calls_made += 1
 
-            # Continue the loop to let LLM respond to tool results
             continue
 
-        # No tool calls - LLM has responded
         assistant_message = response.get("content") or (
             "I couldn't find that in the SIT documents. Would you like me to send an enquiry "
             "to the admissions team?"
         )
         messages.append({"role": "assistant", "content": assistant_message})
 
-        # Check if we need user confirmation for an enquiry
         if pending_enquiry:
             print(f"\n{assistant_message}")
             confirmation = input("\nConfirm submission? (yes/no): ").strip().lower()
 
             if confirmation in ("yes", "y"):
-                # Submit the enquiry
                 result = submit_enquiry(**pending_enquiry)
                 if "id" in result:
                     assistant_message = f"Enquiry submitted successfully! Reference ID: {result['id']}"
@@ -290,8 +273,6 @@ def run_agent(user_question: str, conversation_history: list[dict] | None = None
 
 def ask_llm_with_tools(messages: list[dict], tools: list[dict]) -> dict:
     """Call the LLM with tool support."""
-    # Convert messages to the format expected by ask_llm
-    # The ask_llm function expects (message, system_message, memory)
     system_message = ""
     memory = []
     user_message = ""
@@ -304,17 +285,14 @@ def ask_llm_with_tools(messages: list[dict], tools: list[dict]) -> dict:
         elif msg["role"] == "assistant":
             memory.append({"role": "assistant", "content": msg["content"]})
         elif msg["role"] == "tool":
-            # Tool results go into memory as assistant messages
             memory.append({"role": "assistant", "content": f"Tool result: {msg['content']}"})
 
-    # For tool calling, we need a different approach since ask_llm doesn't support tools natively
-    # We'll create a prompt that includes tool definitions and ask the LLM to respond with tool calls
+
     tool_descriptions = "\n".join([
         f"- {t['function']['name']}: {t['function']['description']}\n  Parameters: {json.dumps(t['function']['parameters'], indent=2)}"
         for t in tools
     ])
 
-    # Build conversation history for the prompt
     history_lines = []
     for msg in messages:
         if msg["role"] == "user":
@@ -353,7 +331,6 @@ Now respond to the latest user message or tool result. If you have enough inform
 
     response_text = ask_llm(tool_prompt, system_message, memory)
 
-    # Try to parse tool calls from response
     try:
         parsed = json.loads(response_text)
         if "tool_calls" in parsed:
@@ -361,7 +338,6 @@ Now respond to the latest user message or tool result. If you have enough inform
     except json.JSONDecodeError:
         pass
 
-    # No tool calls, just a regular response
     return {"content": response_text}
 
 
