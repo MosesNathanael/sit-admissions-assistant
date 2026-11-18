@@ -14,15 +14,18 @@ An AI assistant that answers prospective applicants' questions about applying to
 ## How It Works
 
 ```
-flowchart TD
-    User([Applicant via CLI]) --> Agent[Tool-Calling Agent<br/>agent.py]
+User([Applicant via CLI]) <--> Agent[Tool-Calling Agent<br/>agent.py]
     
-    Agent -->|search_admissions_info| MCP[MCP Server<br/>FastMCP]
-    Agent -->|get_key_dates| MCP
-    Agent -->|submit_enquiry / book_consultation| MCP
+    Tools [MCP Server - mcp_server.py]
+        - Search[search_admissions_info]
+        - Dates[get_key_dates]
+        - Enquiry[submit_enquiry / book_consultation]
     
-    MCP --> Chroma[(ChromaDB<br/>Embedded SIT Docs)]
-    MCP --> Dates[(key_dates.json)]
-    MCP -->|HTTPX| API[FastAPI Backend<br/>enquiry_api.py]
-    
+    Agent <--> Search
+    Agent <--> Dates
+    Agent <--> Enquiry
+
+    Search --> Chroma[(ChromaDB<br/>Indexed SIT Docs)]
+    Dates --> JSON[(key_dates.json)]
+    Enquiry -->|HTTPX| API[FastAPI Backend<br/>enquiry_api.py]
     API --> DB[(SQLite<br/>Enquiries & Consultations)]
