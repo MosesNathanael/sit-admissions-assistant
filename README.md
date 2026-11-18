@@ -13,19 +13,20 @@ An AI assistant that answers prospective applicants' questions about applying to
 
 ## How It Works
 
-```
-User([Applicant via CLI]) <--> Agent[Tool-Calling Agent<br/>agent.py]
-    
-    Tools [MCP Server - mcp_server.py]
-        - Search[search_admissions_info]
-        - Dates[get_key_dates]
-        - Enquiry[submit_enquiry / book_consultation]
-    
-    Agent <--> Search
-    Agent <--> Dates
-    Agent <--> Enquiry
+```mermaid
+flowchart LR
+    User(["Applicant<br/>(CLI)"]) <--> Agent["Tool-calling agent<br/>agent.py"]
+    Agent <-->|"chat"| LLM["Azure OpenAI<br/>gpt-4.1-mini"]
 
-    Search --> Chroma[(ChromaDB<br/>Indexed SIT Docs)]
-    Dates --> JSON[(key_dates.json)]
-    Enquiry -->|HTTPX| API[FastAPI Backend<br/>enquiry_api.py]
-    API --> DB[(SQLite<br/>Enquiries & Consultations)]
+    Agent -->|"search_admissions_info"| Search["RAG search<br/>rag.py"]
+    Agent -->|"get_key_dates"| Dates["key_dates.json"]
+    Agent -->|"submit_enquiry<br/>(HTTPX)"| API["FastAPI backend<br/>enquiry_api.py"]
+
+    Search --> Chroma[("ChromaDB<br/>indexed SIT docs")]
+    Search -.->|"embeddings"| Emb["Azure OpenAI<br/>text-embedding-3-small"]
+    API --> DB[("SQLite<br/>enquiries & consultations")]
+
+    MCP["MCP server<br/>mcp_server.py"] -.->|"same tools,<br/>tested in MCP Inspector"| Search
+    MCP -.-> Dates
+    MCP -.->|"HTTPX"| API
+```
