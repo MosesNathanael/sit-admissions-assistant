@@ -25,7 +25,7 @@ def search_admissions_info(query: str, topic: str | None = None) -> list[dict]:
         query: The question or keywords to look up (e.g. "entry requirements for nursing").
         topic: Optional topic to narrow the search (e.g. "scholarships", "fees", "requirements").
     """
-    # Your Chroma metadata has no topic field, so bias the query text instead.
+
     full_query = f"{topic}: {query}" if topic else query
 
     chunks = ask_query(full_query, N_RESULTS)
