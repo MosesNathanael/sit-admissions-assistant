@@ -35,7 +35,7 @@ def ask_llm(message, system_message = SYSTEM_PROMPT, memory = []):
     response = client.chat.completions.create(
         model="gpt-4.1-mini",
         messages=messages,
-        max_completion_tokens=50,
+        max_completion_tokens=2000,
     )
 
     return response.choices[0].message.content

@@ -1,6 +1,8 @@
 from vectordb import collection
 from llm import ask_llm
 
+MAX_DISTANCE = 1.3
+
 def ask_query(query, n):
     result = collection.query(
         query_texts = query,
@@ -43,7 +45,7 @@ Rules:
 def rag(prompt, assistant):
     chunks = ask_query(prompt, 3)
     best = chunks[0]["distance"]
-    if best > 0.5:
+    if best > MAX_DISTANCE:
         response = ask_llm(prompt, memory = assistant)
         return {
             "answer": response,

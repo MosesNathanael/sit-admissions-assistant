@@ -1,22 +1,31 @@
-from rag import rag
+from agent import *
 
-memory = []
+def main():
+    """Main entry point for the agent."""
+    print("SIT Admissions Assistant Agent")
+    print("Type 'exit' or 'quit' to end the conversation.\n")
 
-while True:
-    user = input("Input: ")
-    if user == "exit" or user == "Exit":
-        break
-    response = rag(user, memory)["answer"]
-    memory.extend([
-        {
-            "role": "user",
-            "content": user,
-        },
-        {
-            "role": "assistant",
-            "content": response
-        }
-    ])
-    print(f"AI: {response}")
+    conversation_history = []
 
-    
+    while True:
+        try:
+            user_input = input("You: ").strip()
+        except (EOFError, KeyboardInterrupt):
+            print("\nGoodbye!")
+            break
+
+        if user_input.lower() in ("exit", "quit"):
+            print("Goodbye!")
+            break
+
+        if not user_input:
+            continue
+
+        print("\nAssistant: ", end="", flush=True)
+        response, conversation_history = run_agent(user_input, conversation_history)
+        print(response)
+        print()
+
+
+if __name__ == "__main__":
+    main()
